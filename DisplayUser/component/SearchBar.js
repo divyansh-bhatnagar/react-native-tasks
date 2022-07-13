@@ -1,11 +1,10 @@
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 

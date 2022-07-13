@@ -1,32 +1,19 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-  ActivityIndicator,
-  Keyboard,
-  Dimensions,
-} from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
-
+import {StyleSheet, View, Keyboard} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import SearchBar from '../component/SearchBar';
-
 import NetInfo from '@react-native-community/netinfo';
-import filter from 'lodash.filter';
-
 import {useSelector, useDispatch} from 'react-redux';
 import {getUser} from '../store/action';
-
 import {useNetInfo} from '@react-native-community/netinfo';
+import FlatListComponent from '../component/FlatListComponent';
 
 const HomeScreen = ({navigation}) => {
   const [isOffline, setOfflineStatus] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [outterLoading, setOutterLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
   const dispatch = useDispatch();
   const {user} = useSelector(state => state.user);
 
@@ -68,24 +55,6 @@ const HomeScreen = ({navigation}) => {
     return () => removeNetInfoSubscription();
   }, []);
 
-  //Getting date
-  let today = new Date();
-  let date =
-    today.getDate() +
-    '-' +
-    parseInt(today.getMonth() + 1) +
-    '-' +
-    today.getFullYear();
-
-  var hours = new Date().getHours(); //Current Hours
-  var min = new Date().getMinutes(); //Current Minutes
-  var time = hours + ':' + min;
-
-  //function to check if data is loading or not
-  const handleEmpty = () => {
-    return <Text style={styles.title}> No Data is Fetched from API !</Text>;
-  };
-
   //function for ListHeaderComponent in FlatList.
   const renderHeader = (
     <SearchBar
@@ -102,6 +71,7 @@ const HomeScreen = ({navigation}) => {
       }}
     />
   );
+
   return (
     <View>
       <View
@@ -109,43 +79,13 @@ const HomeScreen = ({navigation}) => {
           styles.dot,
           {backgroundColor: NetInfoStatus.isConnected ? 'green' : 'red'},
         ]}></View>
-      {/* change boolean value to change color of dot */}
-      <FlatList
-        keyboardShouldPersistTaps="always"
-        ListHeaderComponent={renderHeader}
-        contentContainerStyle={styles.contentContainer}
-        data={userData}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={handleEmpty}
-        renderItem={({item}) => {
-          return (
-            <View style={styles.container}>
-              <View style={styles.dataView}>
-                <Image style={styles.image} source={{uri: item.avatar}} />
-                <View style={styles.name}>
-                  <View style={styles.innerText}>
-                    <Text style={styles.flname}>
-                      {item.first_name} <Text>{item.last_name}</Text>{' '}
-                    </Text>
-                    <Text style={styles.dateTime}>{date}</Text>
-                  </View>
-                  <Text style={styles.msg}>Yes, i'll update you soon!</Text>
-                </View>
-              </View>
-            </View>
-          );
-        }}
-        onEndReached={() => {
-          if (user.total_pages > pageNumber) {
-            setPageNumber(pageNumber + 1);
-          }
-        }}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={() =>
-          isLoading ? (
-            <ActivityIndicator animating size="large" color="green" />
-          ) : null
-        }
+      <FlatListComponent
+        user={user}
+        pageNumber={pageNumber}
+        renderHeader={renderHeader}
+        userData={userData}
+        setPageNumber={setPageNumber}
+        isLoading={isLoading}
       />
     </View>
   );
@@ -154,11 +94,6 @@ const HomeScreen = ({navigation}) => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    flex: 1,
-    width: '100%',
-  },
   dot: {
     width: 10,
     height: 10,
@@ -168,44 +103,5 @@ const styles = StyleSheet.create({
     top: 10,
     zIndex: 1,
     elevation: 1,
-  },
-  dataView: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    paddingVertical: 20,
-    borderBottomColor: '#bebebe',
-    borderBottomWidth: 1,
-  },
-  msg: {
-    fontSize: 12,
-  },
-
-  image: {
-    marginLeft: 10,
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-  },
-  innerText: {
-    width: 250,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  name: {
-    marginTop: 5,
-    width: '70%',
-    marginLeft: 15,
-    height: 50,
-  },
-  flname: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  dateTime: {
-    marginTop: 5,
-  },
-  contentContainer: {
-    paddingBottom: 100,
   },
 });
