@@ -1,4 +1,0 @@
-export const QUOTES_AVAILABLE = 'QUOTES_AVAILABLE';
-export const ADD_QUOTES = 'ADD_QUOTES';
-export const DELETE_QUOTE = 'DELETE_QUOTE';
-export const UPDATE_QUOTE = 'UPDATE_QUOTE';
