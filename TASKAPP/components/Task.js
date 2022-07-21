@@ -4,7 +4,7 @@ import CheckBox from '@react-native-community/checkbox';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useSelector, useDispatch} from 'react-redux';
-import {completeTodo, deleteTodo, editTodo} from '../src/store/action';
+import {deleteTodo, editTodo, toggleTodo} from '../src/store/action';
 
 const Tasks = props => {
   //const [taskArray, setTaskArray] = useState([]);
@@ -14,14 +14,14 @@ const Tasks = props => {
   return (
     <View style={styles.container}>
       <CheckBox
-        //value={todos.check}
+        value={props.taskItem.completed}
         onValueChange={() => {
-          dispatch(completeTodo(check)), props.check(props.taskItem.id);
+          dispatch(toggleTodo(props.taskItem.id, !props.taskItem.completed));
         }}
       />
       <View style={styles.item}>
         <View style={styles.itemInnerView}>
-          <Text style={styles.txt}>{props.taskItem.task}</Text>
+          <Text style={[styles.txt, {textDecorationLine: props.taskItem.completed ? 'line-through' : 'none'}]}>{props.taskItem.task}</Text>
         </View>
       </View>
       <Feather
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   txt: {
     color: '#674ea7',
     fontSize: 15,
-    // textDecorationLine: props.data.check ? 'line-through' : 'none',
   },
   itemInnerView: {
     marginRight: 10,

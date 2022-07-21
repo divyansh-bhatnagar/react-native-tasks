@@ -29,7 +29,7 @@ export const deleteTodo = payload => {
 };
 export const toggleTodo = payload => {
   return {
-    type: COMPLETE_TODO,
+    type: TOGGLE_TODO,
     payload: payload,
     check: true,
   };
