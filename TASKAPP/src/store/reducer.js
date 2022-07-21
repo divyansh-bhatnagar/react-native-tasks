@@ -31,15 +31,6 @@ export default reducer = (state = initialState, action) => {
         todos: filteredTodos,
       };
 
-    // case TOGGLE_TODO: {
-    //   const index = state.todos.findIndex(todo => todo.id !== action.payload); //finding index of the item
-    //   const newArray = [...state.todos]; //making a new array
-    //   newArray[index].completed = true; //changing value in the new array
-    //   return {
-    //     ...state, //copying the orignal state
-    //     todos: newArray, //reassingning todos to new array
-    //   };
-    // }
     case TOGGLE_TODO:
       return {
         ...state,
