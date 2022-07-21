@@ -19,10 +19,10 @@ const ModalComponent = props => {
   const [task, setTask] = useState('');
   console.log('task:', task);
 
-const todosData = {
-  task: task,
-  id: props.editId,
-}
+  const todosData = {
+    task: task,
+    id: props.editId,
+  };
 
   useEffect(() => {
     if (props.editId) {
@@ -74,30 +74,33 @@ const todosData = {
               }}
             />
             <View style={styles.icon}>
-              <TouchableOpacity style={styles.addList}>
-                <AntDesign
-                  name="plus"
-                  size={26}
-                  color="white"
-                  onPress={() => {
-                    dispatch(addTodo(task));
-                    props.setModalVisible(false);
-                    setTask('');
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.addList}>
-                <Feather
-                  name="edit"
-                  size={26}
-                  color="white"
-                  onPress={() => {
-                    dispatch(editTodo(todosData));
-                    props.setModalVisible(false);
-                    setTask('');
-                  }}
-                />
-              </TouchableOpacity>
+              {props.editId ? (
+                <TouchableOpacity style={styles.addList}>
+                  <Feather
+                    name="edit"
+                    size={26}
+                    color="white"
+                    onPress={() => {
+                      dispatch(editTodo(todosData));
+                      props.setModalVisible(false);
+                      setTask('');
+                    }}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.addList}>
+                  <AntDesign
+                    name="plus"
+                    size={26}
+                    color="white"
+                    onPress={() => {
+                      dispatch(addTodo(task));
+                      props.setModalVisible(false);
+                      setTask('');
+                    }}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         </View>
