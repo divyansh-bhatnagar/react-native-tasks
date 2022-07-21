@@ -7,7 +7,7 @@ const initialState = {
 export default reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
-      console.log('action from reducer', action);
+      //console.log('action from reducer', action);
       return {
         ...state, //copying the original state
         todos: [...state.todos, action.payload], //new todos array

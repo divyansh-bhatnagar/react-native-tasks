@@ -10,7 +10,7 @@ const Tasks = props => {
   //const [taskArray, setTaskArray] = useState([]);
   const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
-  console.log('props', props.taskItem.task);
+  //console.log('props', props.taskItem.task);
   return (
     <View style={styles.container}>
       <CheckBox

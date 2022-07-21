@@ -8,7 +8,7 @@ const FlatlistComponent = (props) => {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.reducer.todos);
 
-  console.log('todos from flatlistcomponent', todos);
+ // console.log('todos from flatlistcomponent', todos);
 
   const renderList = ({item}) => {
     return (

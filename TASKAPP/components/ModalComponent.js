@@ -17,7 +17,7 @@ const ModalComponent = props => {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.reducer.todos);
   const [task, setTask] = useState('');
-  console.log('task:', task);
+  //console.log('task:', task);
 
   const todosData = {
     task: task,
