@@ -8,12 +8,14 @@ const FlatlistComponent = (props) => {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.reducer.todos);
 
- // console.log('todos from flatlistcomponent', todos);
+  console.log('todos from flatlistcomponent', todos);
 
   const renderList = ({item}) => {
     return (
-      <View style={{flex: 1, flexDirection: 'row'}}>
+      <View style={{flex: 1, flexDirection: 'row'}}  behavior={Platform.OS === "ios" ? "padding" : "height"}>
+       
         <Tasks taskItem={item} setModalVisible={props.setModalVisible} setEditId={props.setEditId} editId={props.editId}/>
+        
       </View>
     );
   };
@@ -23,7 +25,7 @@ const FlatlistComponent = (props) => {
         ListEmptyComponent={<Empty />}
         data={todos}
         renderItem={renderList}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => item.id}
       />
     </View>
   );

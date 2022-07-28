@@ -33,12 +33,7 @@ const ModalComponent = props => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        style={{
-          height: 350,
-          width: 350,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        style={styles.modalVView}
         animationType="slide"
         transparent={true}
         visible={props.modalVisible}
@@ -116,15 +111,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    //marginTop: 22,
+  },
+  modalVView: {
+    height: 250,
+    width: 250,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imgView: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   img: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
   },
   addList: {
     backgroundColor: '#674ea7',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 30,
     marginLeft: 10,
   },
   modalView: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#674ea7',
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 20,
   },
   TextInput: {

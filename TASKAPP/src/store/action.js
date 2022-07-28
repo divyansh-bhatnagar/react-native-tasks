@@ -1,7 +1,8 @@
 import {ADD_TODO, EDIT_TODO, DELETE_TODO, TOGGLE_TODO} from './actionType';
 
 const generateRandomNumber = () => {
-  var randomNumber = Math.floor(Math.random() * 100) + 1;
+  var randomNumber = Math.floor(Math.random() * 100000) + 1;
+  //const randomNumber = () => parseInt(Date.now() * Math.random());
   return randomNumber;
 };
 

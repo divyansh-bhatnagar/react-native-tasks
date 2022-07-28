@@ -10,7 +10,7 @@ export default function Empty() {
         resizeMode="contain"
        // blurRadius={3}
       />
-      <Text style={styles.text}>Add TODO's!</Text>
+      {/* <Text style={styles.text}>Add TODO's!</Text> */}
     </View>
   );
 }
