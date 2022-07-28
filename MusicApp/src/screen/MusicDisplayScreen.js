@@ -48,15 +48,15 @@ const MusicDisplayScreen = () => {
   const setUpPlayer = async () => {
     try {
       await TrackPlayer.setupPlayer();
-  //     TrackPlayer.updateOptions({
-  //       // Media controls capabilities
-  //       capabilities: [
-  //           Capability.Play,
-  //           Capability.Pause,
-  //           Capability.SkipToNext,
-  //           Capability.SkipToPrevious,
-  //           Capability.Stop,
-  //       ],
+      TrackPlayer.updateOptions({
+        // Media controls capabilities
+        capabilities: [
+            Capability.Play,
+            Capability.Pause,
+            Capability.SkipToNext,
+            Capability.SkipToPrevious,
+            Capability.Stop,
+        ],
     
   //       // Capabilities that will show up when the notification is in the compact form on Android
   //       compactCapabilities: [Capability.Play, Capability.Pause],
@@ -68,7 +68,7 @@ const MusicDisplayScreen = () => {
   //       previousIcon: require('./previous-icon.png'),
   //       nextIcon: require('./next-icon.png'),
   //       icon: require('./notification-icon.png')
-  //   });
+    });
       await TrackPlayer.add(musiclibrary);
     } catch (err) {
       console.log('Error: ', err);
@@ -131,6 +131,7 @@ const MusicDisplayScreen = () => {
     });
     return () => {
       ScrollX.removeAllListeners();
+      TrackPlayer.destroy();
     };
   }, []);
 
@@ -196,7 +197,7 @@ const MusicDisplayScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#2C3E50" barStyle="light-content" />
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.mainContainer}>
         <View style={styles.FL}>
           <Animated.FlatList

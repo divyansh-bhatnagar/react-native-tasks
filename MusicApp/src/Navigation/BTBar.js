@@ -7,6 +7,7 @@ import LibraryListScreen from '../screen/LibraryListScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MusicDisplayScreen from '../screen/MusicDisplayScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -19,12 +20,12 @@ export default function BTBar() {
         barStyle={{backgroundColor: '#000'}}
         shifting={true}>
         <Tab.Screen
-          name="Home"
-          component={TrackList}
+          name="Mucsi"
+          component={MusicDisplayScreen}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Music',
             tabBarIcon: () => (
-              <MaterialCommunityIcons name="home" color={'white'} size={26} />
+              <MaterialCommunityIcons name="music-box" size={26} color={'white'} />
             ),
           }}
         />

@@ -4,8 +4,7 @@ import BTBar from './src/Navigation/BTBar';
 import MusicDisplayScreen from './src/screen/MusicDisplayScreen';
 
 const App = () => {
-  return <MusicDisplayScreen />; 
-  //<BTBar />;
+  return <BTBar />;
 };
 
 export default App;
