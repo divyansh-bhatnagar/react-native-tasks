@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   Animated,
+  Share,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
 import TrackPlayer, {
@@ -57,17 +58,6 @@ const MusicDisplayScreen = () => {
             Capability.SkipToPrevious,
             Capability.Stop,
         ],
-    
-  //       // Capabilities that will show up when the notification is in the compact form on Android
-  //       compactCapabilities: [Capability.Play, Capability.Pause],
-    
-  //       // Icons for the notification on Android (if you don't like the default ones)
-  //       playIcon: require('./play-icon.png'),
-  //       pauseIcon: require('./pause-icon.png'),
-  //       stopIcon: require('./stop-icon.png'),
-  //       previousIcon: require('./previous-icon.png'),
-  //       nextIcon: require('./next-icon.png'),
-  //       icon: require('./notification-icon.png')
     });
       await TrackPlayer.add(musiclibrary);
     } catch (err) {
@@ -195,6 +185,26 @@ const MusicDisplayScreen = () => {
     }
   }
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Share functionality is not added yet , we are working on it.',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -304,7 +314,7 @@ const MusicDisplayScreen = () => {
               style={styles.backButton}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={onShare}>
             <Ionicons
               name="share-outline"
               size={30}
