@@ -20,7 +20,7 @@ export default function BTBar() {
         barStyle={{backgroundColor: '#000'}}
         shifting={true}>
         <Tab.Screen
-          name="Mucsi"
+          name="Music"
           component={MusicDisplayScreen}
           options={{
             tabBarLabel: 'Music',

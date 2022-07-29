@@ -10,6 +10,7 @@ import {
   FlatList,
   Animated,
   Share,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useState, useRef, useEffect} from 'react';
 import TrackPlayer, {
@@ -21,10 +22,12 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-import {musiclibrary} from '../../Data/data';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {musiclibrary} from '../../Data/data';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Slider from '@react-native-community/slider';
+import ModalComponent from '../component/ModalComponent';
+import FlatListComponent from '../component/FlatListComponent';
 
 const {width, height} = Dimensions.get('window');
 
@@ -43,6 +46,8 @@ const MusicDisplayScreen = () => {
   const [trackTitle, setTrackTitle] = useState(null);
   const [trackArtwork, setTrackArtwork] = useState(null);
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const ScrollX = useRef(new Animated.Value(0)).current; // Initialize scroll position
 
   //Setup player (TrackPlayer)
@@ -52,13 +57,13 @@ const MusicDisplayScreen = () => {
       TrackPlayer.updateOptions({
         // Media controls capabilities
         capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SkipToPrevious,
-            Capability.Stop,
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+          Capability.Stop,
         ],
-    });
+      });
       await TrackPlayer.add(musiclibrary);
     } catch (err) {
       console.log('Error: ', err);
@@ -98,7 +103,7 @@ const MusicDisplayScreen = () => {
   //skip song
   const skipTo = async trackId => {
     await TrackPlayer.skip(trackId);
-  } 
+  };
 
   useEffect(() => {
     setUpPlayer();
@@ -168,7 +173,7 @@ const MusicDisplayScreen = () => {
     if (repeatMode === 'repeat') {
       return 'repeat';
     }
-  }
+  };
 
   const changeRepeatMode = () => {
     if (repeatMode === 'off') {
@@ -183,13 +188,12 @@ const MusicDisplayScreen = () => {
       TrackPlayer.setRepeatMode(RepeatMode.Off);
       setRepeatMode('off');
     }
-  }
+  };
 
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message:
-          'Share functionality is not added yet , we are working on it.',
+        message: 'Share functionality is not added yet , we are working on it.',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -204,34 +208,17 @@ const MusicDisplayScreen = () => {
       alert(error.message);
     }
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={styles.mainContainer}>
         <View style={styles.FL}>
-          <Animated.FlatList
-            ref={songSlider}
-            data={musiclibrary}
-            keyExtractor={item => item.url}
+          <FlatListComponent
+            songSlider={songSlider}
+            musiclibrary={musiclibrary}
             renderItem={renderItem}
-            pagingEnabled={true}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            scrollEventThrottle={16} // This is the number of milliseconds between each scroll event.
-            //onScroll is called when the scroll position changes.
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: {
-                    contentOffset: {
-                      x: ScrollX,
-                    },
-                  },
-                },
-              ],
-              {useNativeDriver: true},
-            )}
+            ScrollX={ScrollX}
+            usePlaybackState={usePlaybackState}
           />
         </View>
         {/* Songs title and artist are fetched through index from Scroll X */}
@@ -308,9 +295,9 @@ const MusicDisplayScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity onPress={changeRepeatMode}>
             <MaterialCommunityIcons
-              name= {`${repeatIcon()}`}
+              name={`${repeatIcon()}`}
               size={30}
-              color={repeatMode !== 'off' ? '#FFD369' : "white"}
+              color={repeatMode !== 'off' ? '#FFD369' : 'white'}
               style={styles.backButton}
             />
           </TouchableOpacity>
@@ -322,7 +309,16 @@ const MusicDisplayScreen = () => {
               style={styles.backButton}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => (
+              setModalVisible(true),
+              (
+                <ModalComponent
+                  setModalVisible={setModalVisible}
+                  modalVisible={modalVisible}
+                />
+              )
+            )}>
             <Ionicons
               name="ellipsis-horizontal"
               size={30}
@@ -332,6 +328,14 @@ const MusicDisplayScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.writeTask}>
+        <ModalComponent
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
