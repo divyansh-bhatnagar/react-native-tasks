@@ -9,20 +9,6 @@ import {useSelector} from 'react-redux';
 import UserAuth from './src/Components/UserAuth';
 
 const App = () => {
-  // const [authenticated, setAuthenticated] = useState(false);
-
-  
-
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     const user = await AsyncStorage.getItem('currentuser');
-  //     if (user) {
-  //       setAuthenticated(true);
-  //     }
-  //   };
-  //   checkAuth();
-  // }, []);
 
   return (
     <Provider store={store}>

@@ -114,7 +114,7 @@ export const CustomDrawerContent = props => {
             onPress={() => setModalVisible(true)}
             style={styles.icon}
           />
-          <AntDesign name="delete" size={24} color="black" onPress={onHandleDelete} />
+          <AntDesign name="delete" size={24} color="#FFCCCB" onPress={onHandleDelete} style={styles.icon}/>
         </View>
         <Text style={styles.text}>
           {/* {usersData.name} */}
