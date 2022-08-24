@@ -124,8 +124,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   close: {
-    // borderColor: '#fff',
-    // borderWidth: 1,
     height: 20,
     width: 350,
     right: 0,
