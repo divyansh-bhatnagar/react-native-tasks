@@ -1,10 +1,9 @@
-import {ImageBackground, StyleSheet, Text, View, Image} from 'react-native';
+import {ImageBackground, StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function CustomDrawer(props) {
